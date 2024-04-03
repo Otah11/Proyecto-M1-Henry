@@ -54,14 +54,20 @@ h1{
     width: fit-content;
     padding: 1em 2em 2em 2em;
     border-radius: 2%;
+    filter: grayscale(100%);
     transition: 1s;    
     display: flex;
     flex-direction: column;
     gap: 1em;
     align-items: center;
 }
+.logos:hover{
+    filter: grayscale(0%);
+}
 
 .logoMedidas{
     width: 300px;
     height: 300px;
+    
+ 
 }

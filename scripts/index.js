@@ -99,4 +99,4 @@ function deleteActivity(id) {
 // eenderizar actividades al cargar la pagina
 document.addEventListener('DOMContentLoaded', renderActivities);
 
-// 7 am, despues siresuelvo el document
+

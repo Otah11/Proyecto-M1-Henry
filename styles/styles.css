@@ -16,8 +16,9 @@ body{
 
 h1{
     font-size: 2em;
-  
-
+}
+h2 {
+    margin-bottom: 1em;
 }
 .parrafo{
     text-align: justify;
@@ -66,8 +67,44 @@ h1{
 }
 
 .logoMedidas{
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     
  
+}
+
+section {
+    margin: 2em;
+    padding: 2em;
+    
+    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="url"],
+button {
+    width: 100%;
+    margin-bottom: 0.5em;
+    padding: 8px;
+    border: 2px solid rgb(226, 226, 226);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+}
+
+button {
+   
+    background-color: rgb(29, 29, 29);
+    color: rgb(226, 226, 226);
+    cursor: pointer;
+    margin: auto;
+}
+
+button:hover {
+    background-color: #3d3d3d;
 }

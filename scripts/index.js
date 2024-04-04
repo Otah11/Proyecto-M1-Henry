@@ -1,4 +1,4 @@
-    //  implementar la clase Activity
+// Clase Activity
 class Activity {
     constructor(id, title, description, imgUrl) {
         this.id = id;
@@ -8,7 +8,7 @@ class Activity {
     }
 }
 
-    // implementar la clase Repository
+// Clase Repository
 class Repository {
     constructor() {
         this.activities = [];
@@ -21,25 +21,80 @@ class Repository {
     }
 
     // metodo para crear una nueva actividad
-    createActivity(id, title, description, imgUrl) {
+    createActivity(title, description, imgUrl) {
         this.id++;
         const newActivity = new Activity(this.id, title, description, imgUrl);
         this.activities.push(newActivity);
+        renderActivities(); // llamar a renderActivities después de crear la actividad
+        // vaciar los campos de entrada
+        document.querySelector('input[name="Actividad"]').value = '';
+        document.querySelector('input[name="Descripcion"]').value = '';
+        document.querySelector('input[name="Imagen"]').value = '';
     }
 
     // metodo extra para eliminar una actividad por su id
     deleteActivity(id) {
         this.activities = this.activities.filter(activity => activity.id !== id);
-        return this.activities
+        renderActivities(); // llamar a renderActivities después de eliminar la actividad
+        return this.activities;
     }
-
 }
 
-    // crear una instancia de Repository
+// instancia de Repository
 const repository = new Repository();
 
-    // ejemplo de uso
-repository.createActivity('Practicar deportes', 'Jugar al fútbol con amigos', 'assets/soccer.jpg');
-repository.createActivity('Aprender programación', 'Estudiar JavaScript y Kotlin', 'assets/coding.jpg');
+// funcion para convertir una instancia de Activity en elemento HTML
+function activityToHTML(activity) {
+    const { id, title, description, imgUrl } = activity;
+    const activityElement = document.createElement('div');
+    activityElement.classList.add('activity-card');
+    activityElement.innerHTML = `
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <img src="${imgUrl}" alt="${title}">
+        <button onclick="deleteActivity(${id})">Eliminar</button>
+    `;
+    return activityElement;
+}
 
-console.log(repository.getAllActivities());
+// modificamos la funcion para renderizar actividades
+function renderActivities() {
+    const activitiesContainer = document.querySelector('.activities-container');
+    activitiesContainer.innerHTML = '';
+    const activities = repository.getAllActivities();
+    for (let i = 0; i < activities.length; i += 3) {
+        const row = document.createElement('div');
+        row.classList.add('activities-row');
+        for (let j = i; j < i + 3 && j < activities.length; j++) {
+            const activity = activities[j];
+            const activityElement = activityToHTML(activity);
+            row.appendChild(activityElement);
+        }
+        activitiesContainer.appendChild(row);
+    }
+}
+
+// funcion para manejar el evento de agregar actividad
+function handleAddActivity(event) {
+    event.preventDefault();
+    const title = document.querySelector('input[name="Actividad"]').value;
+    const description = document.querySelector('input[name="Descripcion"]').value;
+    const imgUrl = document.querySelector('input[name="Imagen"]').value;
+    if (title && description && imgUrl) {
+        repository.createActivity(title, description, imgUrl);
+    } else {
+        alert('Por favor completa todos los campos.');
+    }
+}
+
+// asignar evento al botón de agregar actividad
+const addButton = document.querySelector('button');
+addButton.addEventListener('click', handleAddActivity);
+
+// funcion para eliminar una actividad
+function deleteActivity(id) {
+    repository.deleteActivity(id);
+}
+
+// eenderizar actividades al cargar la pagina
+document.addEventListener('DOMContentLoaded', renderActivities);

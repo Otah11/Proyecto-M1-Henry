@@ -108,3 +108,30 @@ button {
 button:hover {
     background-color: #3d3d3d;
 }
+/* Agregamos reglas de estilo para las actividades */
+.activity-card {
+    width: calc(33.33% - 20px); /* Dividimos en tres columnas con un pequeño espacio entre ellas */
+    margin: 10px;
+    display: inline-block; /* Para que estén una al lado de la otra */
+    vertical-align: top; /* Alineamos las actividades arriba */
+    text-align: center;
+    
+}
+
+.activity-card img {
+    margin-top: 10px;
+    width: 400px; /* Ancho deseado para las imágenes */
+    height: auto; /* Para mantener la proporción */
+}
+
+.activity-card button {
+    width: 400px; /* Ancho igual al de la imagen */
+    margin-top: 10px; /* Espacio entre la imagen y el botón */
+}
+
+/* Limpiamos el float para evitar problemas de layout */
+.activities-container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
